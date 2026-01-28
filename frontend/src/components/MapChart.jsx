@@ -1,9 +1,11 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 
 function MapChart({ mapData, seriesData, selectedProvince, onProvinceClick }) {
   const chartRef = useRef(null)
   const chartInstanceRef = useRef(null)
   const [highchartsReady, setHighchartsReady] = useState(false)
+  const zoomStateRef = useRef(null)
+  const isUpdatingSelectionRef = useRef(false)
 
   // Wait for Highcharts to be loaded from CDN
   useEffect(() => {
@@ -17,6 +19,7 @@ function MapChart({ mapData, seriesData, selectedProvince, onProvinceClick }) {
     checkHighcharts()
   }, [])
 
+  // Create chart only when mapData, seriesData, or highchartsReady changes
   useEffect(() => {
     if (!chartRef.current || !mapData || !highchartsReady) return
 
@@ -31,10 +34,23 @@ function MapChart({ mapData, seriesData, selectedProvince, onProvinceClick }) {
     chartInstanceRef.current = Highcharts.mapChart(chartRef.current, {
       chart: {
         map: mapData,
-        backgroundColor: '#f0f2f5'
+        backgroundColor: '#FFF8F0',
+        events: {
+          redraw: function() {
+            // Restore zoom state after redraw if we're updating selection
+            if (isUpdatingSelectionRef.current && zoomStateRef.current && this.mapView) {
+              requestAnimationFrame(() => {
+                if (this.mapView && zoomStateRef.current) {
+                  this.mapView.setView(zoomStateRef.current.center, zoomStateRef.current.zoom, false)
+                  isUpdatingSelectionRef.current = false
+                }
+              })
+            }
+          }
+        }
       },
       title: {
-        text: 'Vietnam 2025: 34 Administrative Units',
+        text: 'Cưỡi Ngựa Vàng - Rước Ngàn Lộc',
         style: {
           fontSize: '24px',
           fontFamily: 'Inter'
@@ -55,9 +71,9 @@ function MapChart({ mapData, seriesData, selectedProvince, onProvinceClick }) {
       colorAxis: {
         min: 0,
         stops: [
-          [0, '#EFEFFF'],
-          [0.5, '#4444FF'],
-          [1, '#000022']
+          [0, '#FFE4B5'],  // Light gold (moccasin)
+          [0.5, '#FFD700'], // Bright gold
+          [1, '#DC143C']    // Crimson red
         ]
       },
       plotOptions: {
@@ -77,10 +93,12 @@ function MapChart({ mapData, seriesData, selectedProvince, onProvinceClick }) {
         data: seriesData,
         joinBy: 'hc-key',
         name: 'Random data',
+        borderColor: '#000000',  // Black borders for all provinces
+        borderWidth: 1,
         states: {
           select: {
-            color: '#a4edba',  // Use select state for clicked provinces
-            borderColor: '#333',
+            color: '#FFD700',  // Gold for selected provinces (Tet theme)
+            borderColor: '#000000',  // Black border for selected provinces
             borderWidth: 2
           }
         },
@@ -118,44 +136,125 @@ function MapChart({ mapData, seriesData, selectedProvince, onProvinceClick }) {
       }]
     })
 
-    // Update selected province visual state
-    if (chartInstanceRef.current && selectedProvince) {
-      const chart = chartInstanceRef.current
-      const series = chart.series[0]
-      if (series) {
-        // Deselect all points first
-        series.data.forEach(point => {
-          if (point.selected) {
-            point.select(false, false)
+    // Restore zoom state if it exists
+    if (zoomStateRef.current && chartInstanceRef.current.mapView) {
+      chartInstanceRef.current.mapView.setView(
+        zoomStateRef.current.center,
+        zoomStateRef.current.zoom,
+        false
+      )
+    }
+
+    // Listen to mapView changes to track zoom state
+    const chart = chartInstanceRef.current
+    if (chart.mapView) {
+      // Store zoom state whenever it changes (user zoom/pan)
+      const updateZoomState = () => {
+        if (!isUpdatingSelectionRef.current && chart.mapView && chart.mapView.center && chart.mapView.zoom !== undefined) {
+          zoomStateRef.current = {
+            center: [chart.mapView.center[0], chart.mapView.center[1]],
+            zoom: chart.mapView.zoom
           }
-        })
-        // Select the clicked province
-        const selectedPoint = series.data.find(point => point.name === selectedProvince)
-        if (selectedPoint) {
-          selectedPoint.select(true, false)
         }
       }
-    } else if (chartInstanceRef.current && !selectedProvince) {
-      // Deselect all when no province is selected
-      const chart = chartInstanceRef.current
-      const series = chart.series[0]
-      if (series) {
-        series.data.forEach(point => {
-          if (point.selected) {
-            point.select(false, false)
-          }
-        })
+      
+      // Listen to afterSetExtremes event if available
+      if (chart.mapView.on) {
+        chart.mapView.on('afterSetExtremes', updateZoomState)
       }
+      
+      // Also check periodically (fallback)
+      const zoomCheckInterval = setInterval(updateZoomState, 100)
+      
+      // Store interval for cleanup
+      chart._zoomCheckInterval = zoomCheckInterval
     }
 
     // Cleanup function
     return () => {
       if (chartInstanceRef.current) {
+        // Save zoom state before destroying
+        if (chartInstanceRef.current.mapView) {
+          zoomStateRef.current = {
+            center: chartInstanceRef.current.mapView.center,
+            zoom: chartInstanceRef.current.mapView.zoom
+          }
+        }
+        // Clear zoom check interval if it exists
+        if (chartInstanceRef.current._zoomCheckInterval) {
+          clearInterval(chartInstanceRef.current._zoomCheckInterval)
+        }
         chartInstanceRef.current.destroy()
         chartInstanceRef.current = null
       }
     }
-  }, [mapData, seriesData, onProvinceClick, highchartsReady, selectedProvince])
+  }, [mapData, seriesData, highchartsReady])
+
+  // Update selected province visual state separately (without recreating chart)
+  useEffect(() => {
+    if (!chartInstanceRef.current) return
+
+    const chart = chartInstanceRef.current
+    const series = chart.series[0]
+    
+    if (!series) return
+
+    // Store current zoom/pan state before updating selection
+    if (chart.mapView && chart.mapView.center && chart.mapView.zoom !== undefined) {
+      zoomStateRef.current = {
+        center: [chart.mapView.center[0], chart.mapView.center[1]],
+        zoom: chart.mapView.zoom
+      }
+    }
+
+    // Mark that we're updating selection to prevent zoom state updates
+    isUpdatingSelectionRef.current = true
+
+    // Deselect all points first (without redraw)
+    series.data.forEach(point => {
+      if (point.selected) {
+        point.select(false, false)
+      }
+    })
+
+    // Select the clicked province if one is selected (without redraw)
+    if (selectedProvince) {
+      const selectedPoint = series.data.find(point => point.name === selectedProvince)
+      if (selectedPoint) {
+        selectedPoint.select(true, false)
+      }
+    }
+
+    // Restore zoom/pan state after selection update
+    // Use multiple attempts to ensure zoom is restored
+    if (zoomStateRef.current && chart.mapView) {
+      const restoreZoom = () => {
+        if (chart.mapView && zoomStateRef.current) {
+          chart.mapView.setView(zoomStateRef.current.center, zoomStateRef.current.zoom, false)
+        }
+      }
+      
+      // Try immediately
+      restoreZoom()
+      
+      // Try after a short delay
+      setTimeout(() => {
+        restoreZoom()
+        isUpdatingSelectionRef.current = false
+      }, 10)
+      
+      // Try after redraw completes
+      requestAnimationFrame(() => {
+        restoreZoom()
+        requestAnimationFrame(() => {
+          restoreZoom()
+          isUpdatingSelectionRef.current = false
+        })
+      })
+    } else {
+      isUpdatingSelectionRef.current = false
+    }
+  }, [selectedProvince])
 
   return <div ref={chartRef} style={{ height: '100vh', width: '100vw' }} />
 }
