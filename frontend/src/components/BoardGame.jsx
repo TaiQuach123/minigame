@@ -4,60 +4,96 @@ import PlayerInfo from './PlayerInfo'
 import DiceRollScreen from './DiceRollScreen'
 import './BoardGame.css'
 
-// Generate board tiles (40 tiles total: 4 corners + 36 regular tiles)
+// Generate Tet-themed board tiles
 function generateBoardTiles() {
   const tiles = []
   
-  // Corner tiles
-  tiles.push({ position: 0, type: 'corner', name: 'GO', icon: '🎯' })
+  // Corner tiles - Tet themed
+  tiles.push({ position: 0, type: 'corner', name: 'Về đích', icon: '🏮', color: 'red' })
   
-  // Regular tiles (9 per side)
-  const tileTypes = ['property', 'property', 'chance', 'property', 'property', 'chance', 'property', 'property', 'property']
-  const icons = ['🏠', '🏢', '', '🏦', '🏛️', '', '🏪', '🏨', '🏗️']
+  // Tet-themed tiles for top row (right to left)
+  const topRowTiles = [
+    { name: 'x200', type: 'reward', icon: '🪙', reward: 200, color: 'yellow' },
+    { name: 'Pháo', type: 'special', icon: '🎆', reward: 500, color: 'red' },
+    { name: 'x200', type: 'reward', icon: '🪙', reward: 200, color: 'yellow' },
+    { name: 'Lì xì', type: 'special', icon: '🧧', color: 'red' },
+    { name: 'S +3', type: 'special', icon: '💰', reward: 3, color: 'red' },
+    { name: 'x400', type: 'reward', icon: '🪙', reward: 400, color: 'yellow' },
+    { name: 'May mắn', type: 'special', icon: '🎁', reward: 600, color: 'red' },
+    { name: 'x200', type: 'reward', icon: '🪙', reward: 200, color: 'yellow' },
+    { name: 'Quà Tết', type: 'special', icon: '🎁', color: 'red' }
+  ]
   
-  // Top row (right to left)
-  for (let i = 0; i < 9; i++) {
+  for (let i = 0; i < topRowTiles.length; i++) {
     tiles.push({
       position: i + 1,
-      type: tileTypes[i],
-      name: `Tile ${i + 1}`,
-      icon: icons[i]
+      ...topRowTiles[i]
     })
   }
   
-  tiles.push({ position: 10, type: 'corner', name: 'Casino', icon: '🎰' })
+  tiles.push({ position: 10, type: 'corner', name: 'Cẩn thận', icon: '⚠️', color: 'red' })
   
   // Right column (top to bottom)
-  for (let i = 0; i < 9; i++) {
+  const rightColumnTiles = [
+    { name: 'x400', type: 'reward', icon: '🪙', reward: 400, color: 'yellow' },
+    { name: 'Hoa đào', type: 'special', icon: '🌸', reward: 300, color: 'red' },
+    { name: 'x800', type: 'reward', icon: '🪙', reward: 800, color: 'yellow' },
+    { name: 'x200', type: 'reward', icon: '🪙', reward: 200, color: 'yellow' },
+    { name: 'x400', type: 'reward', icon: '🪙', reward: 400, color: 'yellow' },
+    { name: 'x200', type: 'reward', icon: '🪙', reward: 200, color: 'yellow' },
+    { name: 'x400', type: 'reward', icon: '🪙', reward: 400, color: 'yellow' },
+    { name: 'x200', type: 'reward', icon: '🪙', reward: 200, color: 'yellow' },
+    { name: 'x400', type: 'reward', icon: '🪙', reward: 400, color: 'yellow' }
+  ]
+  
+  for (let i = 0; i < rightColumnTiles.length; i++) {
     tiles.push({
       position: i + 11,
-      type: tileTypes[i],
-      name: `Tile ${i + 11}`,
-      icon: icons[i]
+      ...rightColumnTiles[i]
     })
   }
   
-  tiles.push({ position: 20, type: 'corner', name: 'Jail', icon: '🔒' })
+  tiles.push({ position: 20, type: 'corner', name: 'Về đích', icon: '🏮', color: 'red' })
   
-  // Bottom row (left to right)
-  for (let i = 0; i < 9; i++) {
+  // Bottom row (left to right) - reverse order
+  const bottomRowTiles = [
+    { name: 'x200', type: 'reward', icon: '🪙', reward: 200, color: 'yellow' },
+    { name: 'x400', type: 'reward', icon: '🪙', reward: 400, color: 'yellow' },
+    { name: 'x200', type: 'reward', icon: '🪙', reward: 200, color: 'yellow' },
+    { name: 'x400', type: 'reward', icon: '🪙', reward: 400, color: 'yellow' },
+    { name: 'x200', type: 'reward', icon: '🪙', reward: 200, color: 'yellow' },
+    { name: 'x400', type: 'reward', icon: '🪙', reward: 400, color: 'yellow' },
+    { name: 'x200', type: 'reward', icon: '🪙', reward: 200, color: 'yellow' },
+    { name: 'x400', type: 'reward', icon: '🪙', reward: 400, color: 'yellow' },
+    { name: 'x200', type: 'reward', icon: '🪙', reward: 200, color: 'yellow' }
+  ]
+  
+  for (let i = 0; i < bottomRowTiles.length; i++) {
     tiles.push({
       position: i + 21,
-      type: tileTypes[i],
-      name: `Tile ${i + 21}`,
-      icon: icons[i]
+      ...bottomRowTiles[i]
     })
   }
   
-  tiles.push({ position: 30, type: 'corner', name: 'Lottery', icon: '🎫' })
+  tiles.push({ position: 30, type: 'corner', name: 'Cẩn thận', icon: '⚠️', color: 'red' })
   
-  // Left column (bottom to top)
-  for (let i = 0; i < 9; i++) {
+  // Left column (bottom to top) - reverse order
+  const leftColumnTiles = [
+    { name: 'x400', type: 'reward', icon: '🪙', reward: 400, color: 'yellow' },
+    { name: 'x200', type: 'reward', icon: '🪙', reward: 200, color: 'yellow' },
+    { name: 'x400', type: 'reward', icon: '🪙', reward: 400, color: 'yellow' },
+    { name: 'x200', type: 'reward', icon: '🪙', reward: 200, color: 'yellow' },
+    { name: 'x400', type: 'reward', icon: '🪙', reward: 400, color: 'yellow' },
+    { name: 'x200', type: 'reward', icon: '🪙', reward: 200, color: 'yellow' },
+    { name: 'x400', type: 'reward', icon: '🪙', reward: 400, color: 'yellow' },
+    { name: 'x200', type: 'reward', icon: '🪙', reward: 200, color: 'yellow' },
+    { name: 'x400', type: 'reward', icon: '🪙', reward: 400, color: 'yellow' }
+  ]
+  
+  for (let i = 0; i < leftColumnTiles.length; i++) {
     tiles.push({
       position: i + 31,
-      type: tileTypes[i],
-      name: `Tile ${i + 31}`,
-      icon: icons[i]
+      ...leftColumnTiles[i]
     })
   }
   
@@ -66,12 +102,42 @@ function generateBoardTiles() {
 
 function BoardGame({ provinceName, onClose }) {
   const [playerPosition, setPlayerPosition] = useState(0)
-  const [playerMoney, setPlayerMoney] = useState(1500)
+  const [playerMoney, setPlayerMoney] = useState(2450)
+  const [playerGems, setPlayerGems] = useState(12)
+  const [playerDiamonds, setPlayerDiamonds] = useState(18)
+  const [luckyEnvelopeProgress, setLuckyEnvelopeProgress] = useState(65) // 0-100
+  const [timeRemaining, setTimeRemaining] = useState(45) // seconds
   const [canRoll, setCanRoll] = useState(true)
   const [lastRoll, setLastRoll] = useState(null)
   const [tiles] = useState(generateBoardTiles())
   const [gameHistory, setGameHistory] = useState([])
   const [showDiceScreen, setShowDiceScreen] = useState(false)
+  const [showLeaderboard, setShowLeaderboard] = useState(window.innerWidth > 768)
+
+  // Timer countdown
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeRemaining(prev => {
+        if (prev <= 1) return 45 // Reset to 45
+        return prev - 1
+      })
+    }, 1000)
+    return () => clearInterval(timer)
+  }, [])
+
+  // Handle window resize for leaderboard visibility
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 768 && showLeaderboard) {
+        setShowLeaderboard(false)
+      } else if (window.innerWidth > 768 && !showLeaderboard) {
+        setShowLeaderboard(true)
+      }
+    }
+
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [showLeaderboard])
 
   const handleRollClick = () => {
     if (!canRoll) return
@@ -110,14 +176,64 @@ function BoardGame({ provinceName, onClose }) {
     }, 500)
   }
 
+  const formatTime = (seconds) => {
+    const mins = Math.floor(seconds / 60)
+    const secs = seconds % 60
+    return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`
+  }
+
   return (
     <div className={`board-game-container ${showDiceScreen ? 'dimmed' : ''}`}>
-      <div className="board-game-header">
-        <h2>{provinceName || 'Board Game'}</h2>
-        <button className="close-btn" onClick={onClose}>
-          &times;
-        </button>
+      {/* Tet-themed Header */}
+      <div className="board-game-header tet-header">
+        <div className="header-left">
+          <div className="game-title">
+            <span className="horse-icon">🐴</span>
+            <h2>Ngựa vàng</h2>
+          </div>
+          <div className="lucky-envelope-section">
+            <span className="envelope-icon">🧧</span>
+            <span className="envelope-label">Lì xì may mắn</span>
+            <div className="progress-bar-container">
+              <div className="progress-bar" style={{ width: `${luckyEnvelopeProgress}%` }}></div>
+            </div>
+            <span className="timer">{formatTime(timeRemaining)}</span>
+          </div>
+        </div>
+        <div className="header-right">
+          <div className="resource-item">
+            <div className="resource-icon gem-icon">💎</div>
+            <span className="resource-value">{playerGems}</span>
+          </div>
+          <div className="resource-item">
+            <div className="resource-icon coin-icon">🪙</div>
+            <span className="resource-value">{playerMoney.toLocaleString()}</span>
+          </div>
+          <div className="resource-item">
+            <div className="resource-icon diamond-icon">💠</div>
+            <span className="resource-value">{playerDiamonds}</span>
+          </div>
+          <button className="close-btn" onClick={onClose}>
+            &times;
+          </button>
+        </div>
       </div>
+
+      {/* Leaderboard Section */}
+      {showLeaderboard && (
+        <div className="leaderboard-section">
+          <div className="leaderboard-header">
+            <span className="trophy-icon">🏆</span>
+            <h3>Bảng Xếp Hạng</h3>
+            <button 
+              className="toggle-leaderboard" 
+              onClick={() => setShowLeaderboard(!showLeaderboard)}
+            >
+              ▼
+            </button>
+          </div>
+        </div>
+      )}
       
       <div className="board-game-content">
         {/* Board */}
@@ -152,21 +268,32 @@ function BoardGame({ provinceName, onClose }) {
               
               {/* Center panel */}
               <div className="board-center">
+                <div className="dice-platform">
+                  <div className="dice-display">
+                    {lastRoll ? (
+                      <div className="dice-value-display">
+                        <div className="dice-number">{lastRoll}</div>
+                      </div>
+                    ) : (
+                      <div className="dice-placeholder">🎲</div>
+                    )}
+                  </div>
+                </div>
                 <PlayerInfo money={playerMoney} lastRoll={lastRoll} />
                 <button 
                   className="roll-dice-button" 
                   onClick={handleRollClick}
                   disabled={!canRoll}
                 >
-                  🎲 Roll Dice
+                  🎲 Gieo Xúc Xắc
                 </button>
                 {gameHistory.length > 0 && (
                   <div className="game-history">
-                    <div className="history-title">Recent Events</div>
+                    <div className="history-title">Sự kiện gần đây</div>
                     {gameHistory.slice(-3).map((event, idx) => (
                       <div key={idx} className="history-item">
-                        {event.type === 'passed_go' && `🎯 Passed GO: +${event.amount}`}
-                        {event.type === 'chance_reward' && `🎁 Chance Reward: +${event.amount}`}
+                        {event.type === 'passed_go' && `🎯 Về đích: +${event.amount}`}
+                        {event.type === 'chance_reward' && `🎁 Phần thưởng: +${event.amount}`}
                       </div>
                     ))}
                   </div>

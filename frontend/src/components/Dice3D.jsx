@@ -63,9 +63,9 @@ function Dice3D({ isRolling = false, value = null, onAnimationComplete }) {
   useMemo(() => {
     if (isRolling) {
       rotationSpeed.current = {
-        x: (Math.random() - 0.5) * 1.2,
-        y: (Math.random() - 0.5) * 1.2,
-        z: (Math.random() - 0.5) * 1.2
+        x: (Math.random() - 0.5) * 0.8,
+        y: (Math.random() - 0.5) * 0.8,
+        z: (Math.random() - 0.5) * 0.8
       }
     } else if (value !== null) {
       // Set target rotation based on dice value
@@ -86,20 +86,20 @@ function Dice3D({ isRolling = false, value = null, onAnimationComplete }) {
     if (!meshRef.current) return
 
     if (isRolling) {
-      // Moderate random rotation during rolling
-      meshRef.current.rotation.x += rotationSpeed.current.x * delta * 25
-      meshRef.current.rotation.y += rotationSpeed.current.y * delta * 25
-      meshRef.current.rotation.z += rotationSpeed.current.z * delta * 25
+      // Slower random rotation during rolling
+      meshRef.current.rotation.x += rotationSpeed.current.x * delta * 18
+      meshRef.current.rotation.y += rotationSpeed.current.y * delta * 18
+      meshRef.current.rotation.z += rotationSpeed.current.z * delta * 18
       
       // Add some randomness to rotation speeds for dynamic rolling
-      rotationSpeed.current.x += (Math.random() - 0.5) * 0.3
-      rotationSpeed.current.y += (Math.random() - 0.5) * 0.3
-      rotationSpeed.current.z += (Math.random() - 0.5) * 0.3
+      rotationSpeed.current.x += (Math.random() - 0.5) * 0.2
+      rotationSpeed.current.y += (Math.random() - 0.5) * 0.2
+      rotationSpeed.current.z += (Math.random() - 0.5) * 0.2
       
       // Keep speeds within reasonable bounds
-      rotationSpeed.current.x = Math.max(-2, Math.min(2, rotationSpeed.current.x))
-      rotationSpeed.current.y = Math.max(-2, Math.min(2, rotationSpeed.current.y))
-      rotationSpeed.current.z = Math.max(-2, Math.min(2, rotationSpeed.current.z))
+      rotationSpeed.current.x = Math.max(-1.5, Math.min(1.5, rotationSpeed.current.x))
+      rotationSpeed.current.y = Math.max(-1.5, Math.min(1.5, rotationSpeed.current.y))
+      rotationSpeed.current.z = Math.max(-1.5, Math.min(1.5, rotationSpeed.current.z))
     } else if (value !== null) {
       // Smoothly rotate to target position
       const lerpFactor = 0.1
@@ -158,7 +158,7 @@ function Dice3D({ isRolling = false, value = null, onAnimationComplete }) {
       {/* Face 5: Bottom (Y-) */}
       <DiceFace value={5} position={[0, -0.501, 0]} rotation={[Math.PI / 2, 0, 0]} />
       {/* Face 6: Back (Z-) */}
-      <DiceFace value={6} position={[0, 0, -0.501]} rotation={[0, Math.PI, 0]} />
+      <DiceFace value={9} position={[0, 0, -0.501]} rotation={[0, Math.PI, 0]} />
     </group>
   )
 }

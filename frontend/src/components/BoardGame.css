@@ -1,12 +1,14 @@
 .board-game-container {
   width: 100%;
   height: 100%;
-  background: #f0f2f5;
+  background: linear-gradient(180deg, #FFE5E5 0%, #FFF8F0 100%);
   display: flex;
   flex-direction: column;
   overflow: hidden;
   position: relative;
   transition: opacity 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 .board-game-container.dimmed {
@@ -14,22 +16,202 @@
   pointer-events: none;
 }
 
-.board-game-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 16px 24px;
+/* Tet-themed Header */
+.board-game-header.tet-header {
+  background: linear-gradient(135deg, #FFB6C1 0%, #FFA07A 100%);
+  color: #8B0000;
+  padding: 12px 20px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  align-items: flex-start;
+  box-shadow: 0 2px 8px rgba(200, 16, 46, 0.2);
   position: relative;
   z-index: 10;
+  min-height: 80px;
 }
 
-.board-game-header h2 {
-  margin: 0;
+.header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.game-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.horse-icon {
   font-size: 24px;
+}
+
+.board-game-header.tet-header h2 {
+  margin: 0;
+  font-size: 22px;
   font-weight: bold;
+  color: #FF8C00;
+  font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', Arial, sans-serif;
+}
+
+.lucky-envelope-section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.envelope-icon {
+  font-size: 16px;
+}
+
+.envelope-label {
+  font-weight: 600;
+  color: #8B0000;
+}
+
+.progress-bar-container {
+  flex: 1;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 4px;
+  overflow: hidden;
+  max-width: 200px;
+  position: relative;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #FFD700 0%, #FFA500 100%);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.timer {
+  font-weight: bold;
+  color: #8B0000;
+  font-size: 14px;
+  min-width: 45px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.resource-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  padding: 6px 10px;
+  border-radius: 20px;
+  backdrop-filter: blur(4px);
+}
+
+.resource-icon {
+  font-size: 18px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gem-icon {
+  background: linear-gradient(135deg, #9370DB 0%, #8A2BE2 100%);
+  border-radius: 50%;
+  font-size: 14px;
+}
+
+.coin-icon {
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  border-radius: 50%;
+  font-size: 14px;
+}
+
+.diamond-icon {
+  background: linear-gradient(135deg, #FF69B4 0%, #FF1493 100%);
+  border-radius: 50%;
+  font-size: 14px;
+}
+
+.resource-value {
+  font-weight: bold;
+  color: #8B0000;
+  font-size: 14px;
+}
+
+.close-btn {
+  background: rgba(200, 16, 46, 0.2);
+  border: none;
+  color: #8B0000;
+  font-size: 28px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.close-btn:hover {
+  background: rgba(200, 16, 46, 0.4);
+  transform: scale(1.1);
+}
+
+/* Leaderboard Section */
+.leaderboard-section {
+  background: white;
+  border-radius: 12px;
+  margin: 8px 16px;
+  padding: 12px 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.leaderboard-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.trophy-icon {
+  font-size: 20px;
+}
+
+.leaderboard-header h3 {
+  margin: 0;
+  flex: 1;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', Arial, sans-serif;
+}
+
+.toggle-leaderboard {
+  background: none;
+  border: none;
+  color: #999;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .board-game-content {
@@ -57,10 +239,24 @@
   grid-template-columns: auto 1fr auto;
   grid-template-rows: auto 1fr auto;
   gap: 0;
-  background: #e8e8e8;
-  border: 4px solid #333;
+  background: linear-gradient(135deg, #FFE5E5 0%, #FFF8F0 50%, #FFE5E5 100%);
+  border: 4px solid #C8102E;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(200, 16, 46, 0.3);
+  position: relative;
+}
+
+.board::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: radial-gradient(circle, rgba(255, 215, 0, 0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
+  pointer-events: none;
   border-radius: 8px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 /* Top row */
@@ -122,10 +318,10 @@
   height: calc(100% / 9);
 }
 
-/* Center panel */
+/* Center panel - Tet themed */
 .board-center {
   grid-column: 2;
-  background: #2c3e50;
+  background: transparent;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -133,26 +329,94 @@
   padding: 20px;
   gap: 16px;
   min-height: 0;
+  position: relative;
+}
+
+/* Dice platform and display */
+.dice-platform {
+  position: relative;
+  width: 140px;
+  height: 50px;
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  border-radius: 25px;
+  box-shadow: 0 4px 12px rgba(200, 16, 46, 0.3);
+  border: 2px solid #C8102E;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.dice-platform::before {
+  content: '🏮';
+  position: absolute;
+  left: 8px;
+  font-size: 18px;
+}
+
+.dice-platform::after {
+  content: '🏮';
+  position: absolute;
+  right: 8px;
+  font-size: 18px;
+}
+
+.dice-display {
+  position: relative;
+  z-index: 2;
+}
+
+.dice-value-display {
+  background: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border: 3px solid #333;
+}
+
+.dice-number {
+  font-size: 32px;
+  font-weight: bold;
+  color: #333;
+}
+
+.dice-placeholder {
+  font-size: 32px;
+  opacity: 0.7;
 }
 
 .roll-dice-button {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  background: linear-gradient(135deg, #C8102E 0%, #FF6347 100%);
   color: white;
-  border: none;
+  border: 2px solid #FFD700;
   padding: 16px 32px;
   border-radius: 12px;
   font-size: 18px;
   font-weight: bold;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 12px rgba(200, 16, 46, 0.4);
   transition: all 0.2s;
   width: 100%;
   margin-bottom: 16px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .roll-dice-button:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 6px 16px rgba(200, 16, 46, 0.5);
+  background: linear-gradient(135deg, #FF6347 0%, #FF4500 100%);
 }
 
 .roll-dice-button:active:not(:disabled) {
@@ -165,13 +429,15 @@
 }
 
 .game-history {
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
+  background: rgba(255, 255, 255, 0.9);
+  color: #8B0000;
   padding: 12px;
   border-radius: 8px;
   width: 100%;
   max-height: 120px;
   overflow-y: auto;
+  border: 2px solid #FFD700;
+  box-shadow: 0 2px 8px rgba(200, 16, 46, 0.2);
 }
 
 .history-title {
@@ -187,26 +453,410 @@
   opacity: 0.9;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
+/* Responsive adjustments for tablets */
+@media (max-width: 1024px) and (min-width: 769px) {
   .board-row-top .board-tile,
   .board-row-bottom .board-tile {
-    height: 60px;
-    font-size: 8px;
+    height: 70px;
+    font-size: 9px;
   }
   
   .board-column-left .board-tile,
   .board-column-right .board-tile {
-    width: 60px;
+    width: 70px;
+    font-size: 9px;
+  }
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  .board-game-container {
+    min-height: 100vh;
+    height: auto;
+  }
+
+  /* Header - Stack vertically on mobile */
+  .board-game-header.tet-header {
+    flex-direction: column;
+    padding: 10px 12px;
+    min-height: auto;
+    gap: 10px;
+  }
+
+  .header-left {
+    width: 100%;
+    gap: 6px;
+  }
+
+  .game-title {
+    gap: 6px;
+  }
+
+  .horse-icon {
+    font-size: 20px;
+  }
+
+  .board-game-header.tet-header h2 {
+    font-size: 18px;
+  }
+
+  .lucky-envelope-section {
+    font-size: 11px;
+    flex-wrap: wrap;
+    gap: 6px;
+    width: 100%;
+  }
+
+  .envelope-label {
+    font-size: 11px;
+  }
+
+  .progress-bar-container {
+    flex: 1;
+    min-width: 120px;
+    max-width: none;
+    height: 6px;
+  }
+
+  .timer {
+    font-size: 12px;
+    min-width: 40px;
+  }
+
+  .header-right {
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    gap: 6px;
+  }
+
+  .resource-item {
+    padding: 6px 10px;
+    flex: 1;
+    min-width: 0;
+    justify-content: center;
+  }
+
+  .resource-icon {
+    font-size: 16px;
+    width: 20px;
+    height: 20px;
+  }
+
+  .resource-value {
+    font-size: 11px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .close-btn {
+    width: 44px;
+    height: 44px;
+    font-size: 24px;
+    flex-shrink: 0;
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  /* Leaderboard - More compact on mobile */
+  .leaderboard-section {
+    margin: 6px 12px;
+    padding: 10px 12px;
+  }
+
+  .leaderboard-header h3 {
+    font-size: 14px;
+  }
+
+  .trophy-icon {
+    font-size: 18px;
+  }
+
+  /* Board adjustments */
+  .board-game-content {
+    padding: 8px;
+    flex: 1;
+    min-height: 0;
+  }
+
+  .board-wrapper {
+    max-width: 100%;
+    aspect-ratio: 1;
+  }
+
+  .board {
+    border-width: 3px;
+    border-radius: 8px;
+  }
+
+  /* Tiles - Smaller but readable */
+  .board-row-top .board-tile,
+  .board-row-bottom .board-tile {
+    height: 50px;
+    font-size: 7px;
+  }
+  
+  .board-column-left .board-tile,
+  .board-column-right .board-tile {
+    width: 50px;
+    font-size: 7px;
+  }
+
+  .board-tile {
+    border-width: 1.5px;
+  }
+
+  .property-icon {
+    font-size: 14px;
+    margin-bottom: 1px;
+  }
+
+  .property-name {
+    font-size: 7px;
+    line-height: 1.1;
+  }
+
+  .reward-amount {
+    font-size: 7px;
+  }
+
+  .corner-icon {
+    font-size: 18px;
+  }
+
+  .corner-name {
     font-size: 8px;
   }
-  
+
+  /* Center area - Compact */
   .board-center {
+    padding: 10px 8px;
+    gap: 10px;
+  }
+
+  .dice-platform {
+    width: 100px;
+    height: 40px;
+    margin-bottom: 6px;
+  }
+
+  .dice-platform::before,
+  .dice-platform::after {
+    font-size: 12px;
+  }
+
+  .dice-platform::before {
+    left: 6px;
+  }
+
+  .dice-platform::after {
+    right: 6px;
+  }
+
+  .dice-value-display {
+    width: 36px;
+    height: 36px;
+    border-width: 2px;
+  }
+
+  .dice-number {
+    font-size: 20px;
+  }
+
+  .dice-placeholder {
+    font-size: 24px;
+  }
+
+  /* Player Info - Compact */
+  .player-info.tet-player-info {
     padding: 12px;
+    margin-bottom: 10px;
+  }
+
+  .player-name {
+    font-size: 16px;
+  }
+
+  .player-icon {
+    font-size: 20px;
+  }
+
+  .stat-item {
+    font-size: 12px;
+  }
+
+  .stat-value {
+    font-size: 14px;
+  }
+
+  /* Roll button - Touch-friendly */
+  .roll-dice-button {
+    padding: 14px 24px;
+    font-size: 16px;
+    min-height: 48px;
+    border-width: 2px;
+    width: 100%;
+  }
+
+  /* Prevent text selection on mobile */
+  .board-tile,
+  .resource-item,
+  .player-info {
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  /* Game history - Compact */
+  .game-history {
+    padding: 10px;
+    max-height: 100px;
+  }
+
+  .history-title {
+    font-size: 11px;
+    margin-bottom: 6px;
+  }
+
+  .history-item {
+    font-size: 10px;
+    padding: 3px 0;
+  }
+
+  /* Corner tiles */
+  .board-tile.corner {
+    min-width: 50px;
+    min-height: 50px;
+  }
+
+  .board-row-top .board-tile.corner,
+  .board-row-bottom .board-tile.corner {
+    width: 50px;
+  }
+
+  .board-column-left .board-tile.corner,
+  .board-column-right .board-tile.corner {
+    height: 50px;
+  }
+
+  /* Player token */
+  .token {
+    width: 22px;
+    height: 22px;
+    font-size: 14px;
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+  .board-game-header.tet-header {
+    padding: 8px 10px;
+  }
+
+  .board-game-header.tet-header h2 {
+    font-size: 16px;
+  }
+
+  .horse-icon {
+    font-size: 18px;
+  }
+
+  .lucky-envelope-section {
+    font-size: 10px;
+  }
+
+  .resource-item {
+    padding: 5px 8px;
+  }
+
+  .resource-icon {
+    font-size: 14px;
+    width: 18px;
+    height: 18px;
+  }
+
+  .resource-value {
+    font-size: 10px;
+  }
+
+  .board-row-top .board-tile,
+  .board-row-bottom .board-tile {
+    height: 45px;
+    font-size: 6px;
   }
   
-  .board-game-header h2 {
-    font-size: 20px;
+  .board-column-left .board-tile,
+  .board-column-right .board-tile {
+    width: 45px;
+    font-size: 6px;
+  }
+
+  .property-icon {
+    font-size: 12px;
+  }
+
+  .property-name {
+    font-size: 6px;
+  }
+
+  .board-center {
+    padding: 8px 6px;
+    gap: 8px;
+  }
+
+  .dice-platform {
+    width: 90px;
+    height: 35px;
+  }
+
+  .dice-value-display {
+    width: 32px;
+    height: 32px;
+  }
+
+  .dice-number {
+    font-size: 18px;
+  }
+
+  .roll-dice-button {
+    padding: 12px 20px;
+    font-size: 15px;
+  }
+
+  .board-tile.corner {
+    min-width: 45px;
+    min-height: 45px;
+  }
+
+  .board-row-top .board-tile.corner,
+  .board-row-bottom .board-tile.corner {
+    width: 45px;
+  }
+
+  .board-column-left .board-tile.corner,
+  .board-column-right .board-tile.corner {
+    height: 45px;
+  }
+}
+
+/* Landscape mobile orientation */
+@media (max-width: 768px) and (orientation: landscape) {
+  .board-game-header.tet-header {
+    flex-direction: row;
+    padding: 8px 12px;
+  }
+
+  .header-left {
+    flex: 1;
+  }
+
+  .header-right {
+    flex: 0 0 auto;
+  }
+
+  .board-wrapper {
+    max-width: 90vh;
   }
 }
 

@@ -3,9 +3,10 @@ import './BoardTile.css'
 function BoardTile({ tile, position, playerPosition, isCorner = false }) {
   const hasPlayer = playerPosition === position
   const tileType = tile?.type || 'property'
+  const tileColor = tile?.color || 'yellow'
   
   return (
-    <div className={`board-tile ${tileType} ${isCorner ? 'corner' : ''} ${hasPlayer ? 'has-player' : ''}`}>
+    <div className={`board-tile ${tileType} ${isCorner ? 'corner' : ''} ${hasPlayer ? 'has-player' : ''} tet-tile tet-tile-${tileColor}`}>
       {isCorner ? (
         <div className="corner-content">
           <div className="corner-icon">{tile?.icon || '🏠'}</div>
@@ -21,6 +22,9 @@ function BoardTile({ tile, position, playerPosition, isCorner = false }) {
             <div className="property-tile">
               {tile?.icon && <div className="property-icon">{tile.icon}</div>}
               {tile?.name && <div className="property-name">{tile.name}</div>}
+              {tile?.reward && (
+                <div className="reward-amount">x{tile.reward}</div>
+              )}
             </div>
           )}
         </>

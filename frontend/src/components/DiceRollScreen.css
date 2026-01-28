@@ -11,6 +11,7 @@
   justify-content: center;
   z-index: 2000;
   animation: fadeIn 0.3s ease;
+  overflow: hidden;
 }
 
 @keyframes fadeIn {
@@ -33,17 +34,17 @@
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   max-width: 90%;
   width: 500px;
-  animation: slideUp 0.3s ease;
+  animation: centerPopIn 0.3s ease;
   border: 3px solid rgba(255, 215, 0, 0.3);
 }
 
-@keyframes slideUp {
+@keyframes centerPopIn {
   from {
-    transform: translateY(50px);
+    transform: scale(0.9);
     opacity: 0;
   }
   to {
-    transform: translateY(0);
+    transform: scale(1);
     opacity: 1;
   }
 }
@@ -224,6 +225,7 @@
   .dice-roll-screen-content {
     padding: 32px;
     width: 90%;
+    max-width: 400px;
   }
 
   .dice-roll-title {
@@ -237,5 +239,26 @@
 
   .result-value {
     font-size: 48px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dice-roll-screen-content {
+    padding: 24px;
+    width: 95%;
+    max-width: 350px;
+  }
+
+  .dice-3d-wrapper {
+    width: 200px;
+    height: 200px;
+  }
+
+  .dice-roll-title {
+    font-size: 20px;
+  }
+
+  .result-value {
+    font-size: 40px;
   }
 }

@@ -32,6 +32,19 @@
 .modal-content.board-game-modal {
   background: #f0f2f5;
   overflow: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .modal-content.board-game-modal {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .modal-overlay {
+    -webkit-overflow-scrolling: touch;
+  }
 }
 
 @keyframes slideIn {

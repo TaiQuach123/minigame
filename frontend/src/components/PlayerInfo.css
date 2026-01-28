@@ -7,6 +7,12 @@
   margin-bottom: 16px;
 }
 
+.player-info.tet-player-info {
+  background: linear-gradient(135deg, #C8102E 0%, #FF6347 100%);
+  border: 2px solid #FFD700;
+  box-shadow: 0 4px 12px rgba(200, 16, 46, 0.4);
+}
+
 .player-header {
   display: flex;
   align-items: center;
@@ -17,6 +23,38 @@
 .player-name {
   font-size: 18px;
   font-weight: bold;
+}
+
+.tet-player-info .player-name {
+  color: #FFD700;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .player-info.tet-player-info {
+    padding: 10px;
+  }
+
+  .player-header {
+    margin-bottom: 8px;
+  }
+
+  .player-name {
+    font-size: 15px;
+  }
+
+  .player-icon {
+    font-size: 18px;
+  }
+
+  .stat-item {
+    font-size: 11px;
+  }
+
+  .stat-value {
+    font-size: 13px;
+  }
 }
 
 .player-icon {
