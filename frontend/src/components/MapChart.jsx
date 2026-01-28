@@ -62,6 +62,12 @@ function MapChart({ mapData, seriesData, selectedProvince, onProvinceClick }) {
           fontFamily: 'Inter'
         }
       },
+      credits: {
+        enabled: false
+      },
+      legend: {
+        enabled: false
+      },
       mapNavigation: {
         enabled: true,
         buttonOptions: {
