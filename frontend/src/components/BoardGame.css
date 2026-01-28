@@ -1,0 +1,227 @@
+.board-game-container {
+  width: 100%;
+  height: 100%;
+  background: #f0f2f5;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  transition: opacity 0.3s ease;
+}
+
+.board-game-container.dimmed {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.board-game-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 10;
+}
+
+.board-game-header h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.board-game-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  overflow: auto;
+}
+
+.board-wrapper {
+  width: 100%;
+  max-width: 800px;
+  aspect-ratio: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.board {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: auto 1fr auto;
+  gap: 0;
+  background: #e8e8e8;
+  border: 4px solid #333;
+  border-radius: 8px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Top row */
+.board-row-top {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  display: flex;
+  flex-direction: row;
+}
+
+.board-row-top .board-tile {
+  width: calc(100% / 11);
+  height: 80px;
+}
+
+/* Bottom row */
+.board-row-bottom {
+  grid-column: 1 / -1;
+  grid-row: 3;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.board-row-bottom .board-tile {
+  width: calc(100% / 11);
+  height: 80px;
+}
+
+/* Middle section */
+.board-middle {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  height: 100%;
+}
+
+/* Left column */
+.board-column-left {
+  grid-column: 1;
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.board-column-left .board-tile {
+  width: 80px;
+  height: calc(100% / 9);
+}
+
+/* Right column */
+.board-column-right {
+  grid-column: 3;
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.board-column-right .board-tile {
+  width: 80px;
+  height: calc(100% / 9);
+}
+
+/* Center panel */
+.board-center {
+  grid-column: 2;
+  background: #2c3e50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  gap: 16px;
+  min-height: 0;
+}
+
+.roll-dice-button {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+  border: none;
+  padding: 16px 32px;
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.roll-dice-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+.roll-dice-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.roll-dice-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.game-history {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  padding: 12px;
+  border-radius: 8px;
+  width: 100%;
+  max-height: 120px;
+  overflow-y: auto;
+}
+
+.history-title {
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  opacity: 0.8;
+}
+
+.history-item {
+  font-size: 11px;
+  padding: 4px 0;
+  opacity: 0.9;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .board-row-top .board-tile,
+  .board-row-bottom .board-tile {
+    height: 60px;
+    font-size: 8px;
+  }
+  
+  .board-column-left .board-tile,
+  .board-column-right .board-tile {
+    width: 60px;
+    font-size: 8px;
+  }
+  
+  .board-center {
+    padding: 12px;
+  }
+  
+  .board-game-header h2 {
+    font-size: 20px;
+  }
+}
+
+/* Corner tile special styling */
+.board-tile.corner {
+  min-width: 80px;
+  min-height: 80px;
+}
+
+.board-row-top .board-tile.corner,
+.board-row-bottom .board-tile.corner {
+  width: 80px;
+}
+
+.board-column-left .board-tile.corner,
+.board-column-right .board-tile.corner {
+  height: 80px;
+}

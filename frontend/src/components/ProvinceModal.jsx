@@ -1,4 +1,5 @@
 import './ProvinceModal.css'
+import BoardGame from './BoardGame'
 
 function ProvinceModal({ isOpen, provinceName, onClose }) {
   if (!isOpen) return null
@@ -14,14 +15,8 @@ function ProvinceModal({ isOpen, provinceName, onClose }) {
       className={`modal-overlay ${isOpen ? 'active' : ''}`}
       onClick={handleOverlayClick}
     >
-      <div className="modal-content">
-        <button className="close-btn" onClick={onClose}>
-          &times;
-        </button>
-        <h2>{provinceName || 'Province Name'}</h2>
-        <div className="modal-body">
-          Content for this province will go here.
-        </div>
+      <div className="modal-content board-game-modal" onClick={(e) => e.stopPropagation()}>
+        <BoardGame provinceName={provinceName} onClose={onClose} />
       </div>
     </div>
   )

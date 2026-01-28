@@ -97,22 +97,89 @@ Minigame du xuân nơi người chơi gieo xúc xắc để đưa Tebbi cưỡi 
 
 ---
 
+## **I. TỔNG QUAN TRÒ CHƠI**
+
+Minigame khám phá bản đồ Việt Nam mới với **34 tỉnh thành**. Người chơi gieo xúc xắc để thu thập bộ **4 mảnh ghép duy nhất** (Bắc, Trung, Nam và 1 Mảnh Hiếm) để đổi giải thưởng lớn.
+
+---
+
+## **II. QUY TRÌNH CHƠI (GAME FLOW)**
+
+1. **Chọn Tỉnh:** Click vào 1 trong 34 tỉnh trên bản đồ Việt Nam.
+2. **Gieo Xúc Xắc:** Di chuyển trên bàn cờ hình vuông 20 ô của tỉnh đó.
+3. **Hoàn Thành:** Chạm hoặc vượt qua **ô số 20 (Finish)** để kết thúc tỉnh và nhận thưởng lượt chơi.
+
+---
+
+## **III. CHI TIẾT BÀN CỜ 20 Ô (SQUARE BOARD)**
+
+Bố trí các ô dựa trên tỷ lệ cố định để đảm bảo cân bằng giữa thử thách và phần thưởng:
+
+| STT | Loại ô | Số lượng | Tỷ lệ % | Chức năng chi tiết |
+| :--- | :--- | :---: | :---: | :--- |
+| **1** | **START** | 1 | 5% | Vị trí xuất phát. |
+| **20** | **FINISH** | 1 | 5% | **Ô Cuối:** Hoàn thành tỉnh, nhận thưởng +1 lượt và quay lại bản đồ. |
+| **6, 16** | **SỰ KIỆN** | 2 | 10% | **Săn Mảnh Ghép:** Tỉ lệ rơi mảnh vùng miền hoặc mảnh Hiếm. |
+| 3, 8, 13, 18 | **TIỀN THƯỞNG** | 4 | 20% | Hoàn tiền trực tiếp vào ví thưởng. |
+| 7, 14, 19 | **THÊM LƯỢT** | 3 | 15% | Nhận ngay +1 hoặc +2 lượt gieo xúc xắc. |
+| 4, 10, 17 | **THỬ THÁCH** | 3 | 15% | Lùi bước, đứng im hoặc bị trừ xu. |
+| Còn lại | **LỜI CHÚC** | 6 | 30% | Hiện pop-up câu chúc + thưởng xu nhỏ. |
+
+---
+
+## **IV. CƠ CHẾ KIẾM LƯỢT CHƠI (HỆ THỐNG VẬN HÀNH)**
+
+Game không quảng cáo, lượt chơi được cấp theo các mốc sau:
+
+* **Tặng khởi tạo:** **10 lượt** khi chơi lần đầu.
+* **Điểm danh:** **+3 lượt** mỗi ngày khi đăng nhập.
+* **Hồi lượt tự động:** **+1 lượt** sau mỗi **2 tiếng** đồng hồ.
+* **Thưởng thành tích:**
+    * Hoàn thành 1 tỉnh: **+1 lượt**.
+    * Hoàn thành tất cả các tỉnh trong 1 miền: **+10 lượt**.
+* **May mắn:** Nhận thêm lượt tại các ô **Thêm Lượt** trên bàn cờ.
+
+---
+
+## **V. CƠ CHẾ MẢNH GHÉP & BẢO HIỂM (QUAN TRỌNG)**
+
+Hệ thống đảm bảo người chơi sẽ sở hữu đủ bộ mảnh ghép nếu hoàn thành bản đồ:
+
+### 1. Mảnh Ghép Vùng Miền (3 Mảnh)
+- **Cơ chế rơi:** Xuất hiện ngẫu nhiên tại ô **Sự kiện (6, 16)**.
+- **Giới hạn rơi (Daily Limit):** Trong một ngày, người chơi chỉ có thể nhận **tối đa 1 mảnh ghép vùng miền**. 
+    * *Mục đích:* Kéo dài thời gian trải nghiệm, tránh việc người chơi lấy hết mảnh vùng trong 1 ngày.
+
+
+- **Bảo hiểm:** Nếu đã chơi hết toàn bộ tỉnh của một miền mà vẫn chưa có mảnh, hệ thống tự động tặng mảnh đó ở tỉnh cuối cùng.
+
+### 2. Mảnh Ghép Hiếm (Mảnh thứ 4)
+Để tăng giá trị cho giải thưởng lớn, mảnh Hiếm chỉ xuất hiện khi đạt đủ 2 điều kiện:
+- **Điều kiện 1:** Người chơi phải sở hữu đủ **3 mảnh vùng miền** (Bắc, Trung, Nam).
+- **Điều kiện 2:** Người chơi đã hoàn thành ít nhất **50% bản đồ (17/34 tỉnh thành)**.
+- **Cơ chế rơi:** Khi thỏa mãn 2 điều kiện trên, mảnh Hiếm sẽ bắt đầu xuất hiện ngẫu nhiên tại các ô Sự kiện.
+- **Bảo hiểm tối thượng:** Nếu hoàn thành toàn bộ **34 tỉnh** mà vẫn chưa có mảnh Hiếm, hệ thống sẽ chắc chắn tặng tại ô Finish tỉnh thứ 34.
+
+---
+
 ## **3. USER FLOW**
 
 ### **3.1 High-level Flow (Luồng người dùng tổng quan)**
 
-**Luồng chính (Đơn giản hóa cho 1 tuần)**: Entry → Xem luật chơi (lần đầu, đơn giản) → Màn hình game → Gieo xúc xắc → Di chuyển Tebbi → Dừng tại tỉnh → Nhận thưởng → Chơi tiếp → Hoàn thành vòng → Nhận mảnh ghép → Hoàn thành 4 mảnh → Nhận thưởng lớn → Reset vòng mới
+**Luồng chính (Cập nhật theo game flow mới)**: Entry → Xem luật chơi (lần đầu, đơn giản) → Bản đồ Việt Nam tổng quát → Chọn tỉnh → Màn hình bàn cờ tỉnh → Gieo xúc xắc → Di chuyển trên bàn cờ 20 ô → Dừng tại ô → Nhận thưởng → Chơi tiếp → Hoàn thành tỉnh (ô 20) → Quay về bản đồ → Chọn tỉnh tiếp theo → Thu thập đủ 4 mảnh ghép → Nhận thưởng lớn
 
 **Luồng chi tiết (Tối giản)**:
 1. **Entry**: Người dùng thấy banner/popup minigame trên app Rovi Travel → Click vào
 2. **Onboarding** (lần đầu, đơn giản): Xem popup hướng dẫn ngắn gọn luật chơi → Click "Bắt đầu" (có thể skip)
-3. **Game Screen**: Xem bản đồ Việt Nam với Tebbi ở vị trí hiện tại → Xem số lượt còn lại → Click nút "Gieo xúc xắc"
-4. **Roll Dice**: Xúc xắc quay (animation đơn giản) → Hiển thị số (1-6) → Tebbi di chuyển (animation cơ bản)
-5. **Land on Province**: Tebbi dừng tại một tỉnh → Popup thưởng hiển thị
-6. **Reward Popup**: Hiển thị loại thưởng nhận được (tiền/câu chúc/lượt) → Click "Tiếp tục" → Quay về Game Screen
-7. **Puzzle Check** (nếu về đích): Tự động hiển thị popup mảnh ghép nhận được → Click "Tiếp tục"
-8. **Puzzle Complete** (nếu đủ 4 mảnh): Popup thông báo hoàn thành → Nhận thưởng lớn → Reset vòng mới tự động
-9. **CTA đơn giản**: Chơi tiếp / Điểm danh (nếu có thời gian) / Đóng
+3. **Bản đồ tổng quát**: Xem bản đồ Việt Nam với 34 tỉnh thành → Xem số lượt còn lại → Xem tiến độ hoàn thành → Click vào một tỉnh để chơi
+4. **Màn hình bàn cờ tỉnh**: Xem bàn cờ hình vuông 20 ô của tỉnh đã chọn → Xem vị trí hiện tại trên bàn cờ → Click nút "Gieo xúc xắc"
+5. **Roll Dice**: Xúc xắc quay (animation đơn giản) → Hiển thị số (1-6) → Marker di chuyển trên bàn cờ (animation cơ bản)
+6. **Land on Square**: Marker dừng tại một ô → Kích hoạt chức năng ô (Sự kiện/Tiền thưởng/Thêm lượt/Thử thách/Lời chúc) → Popup thưởng hiển thị
+7. **Reward Popup**: Hiển thị loại thưởng nhận được (tiền/câu chúc/lượt/mảnh ghép) → Click "Tiếp tục" → Quay về màn hình bàn cờ tỉnh
+8. **Hoàn thành tỉnh**: Khi đến ô FINISH (20) → Popup hoàn thành tỉnh → Nhận thưởng +1 lượt → Quay về bản đồ tổng quát
+9. **Puzzle Check** (nếu nhận mảnh ghép tại ô Sự kiện): Tự động hiển thị popup mảnh ghép nhận được → Click "Tiếp tục"
+10. **Puzzle Complete** (nếu đủ 4 mảnh): Popup thông báo hoàn thành → Nhận thưởng lớn → Tiếp tục chơi
+11. **CTA đơn giản**: Chơi tiếp / Điểm danh (nếu có thời gian) / Quay lại bản đồ / Đóng
 
 ---
 
@@ -133,7 +200,7 @@ Minigame du xuân nơi người chơi gieo xúc xắc để đưa Tebbi cưỡi 
 **Các CTA chính sau mỗi lượt chơi (Tối giản)**:
 * **"Chơi tiếp"**: Nếu còn lượt → Quay lại màn hình game để gieo tiếp (CTA chính)
 * **"Điểm danh"**: Nếu chưa điểm danh hôm nay → Popup điểm danh đơn giản (nếu có thời gian)
-* **"Xem mảnh ghép"**: Popup hiển thị tiến độ thu thập 4 mảnh ghép (có thể tích hợp vào Game Screen)
+* **"Xem mảnh ghép"**: Popup hiển thị tiến độ thu thập 4 mảnh ghép (có thể tích hợp vào Screen 2 - Bản đồ tổng quát)
 * **"Đóng"**: Thoát về trang chủ hoặc màn hình trước đó
 
 **Loại bỏ trong Phase 1**:
@@ -142,8 +209,9 @@ Minigame du xuân nơi người chơi gieo xúc xắc để đưa Tebbi cưỡi 
 * "Khám phá điểm du lịch" (cross-sell làm sau)
 
 **Điểm thoát hợp lý**:
-* Sau khi nhận thưởng và không còn lượt → Hiển thị CTA "Điểm danh" (nếu có) hoặc "Đóng"
-* Sau khi hoàn thành 4 mảnh ghép → Tự động reset và CTA "Chơi tiếp"
+* Sau khi nhận thưởng và không còn lượt → Hiển thị CTA "Điểm danh" (nếu có) hoặc "Quay lại bản đồ" hoặc "Đóng"
+* Sau khi hoàn thành tỉnh → Quay về bản đồ tổng quát với CTA "Chọn tỉnh tiếp theo"
+* Sau khi hoàn thành 4 mảnh ghép → Nhận thưởng lớn và CTA "Tiếp tục chơi"
 * Người dùng có thể đóng minigame bất cứ lúc nào và quay lại tiếp tục sau
 
 ---
@@ -196,7 +264,7 @@ Minigame du xuân nơi người chơi gieo xúc xắc để đưa Tebbi cưỡi 
   * Button chính: "Bắt đầu ngay" (CTA nổi bật)
   * Close button (X) ở góc trên phải
 * **User Actions**:
-  * Click "Bắt đầu ngay" → Hiển thị popup luật chơi ngắn gọn (nếu lần đầu) → Chuyển đến Screen 2 (Game Screen)
+  * Click "Bắt đầu ngay" → Hiển thị popup luật chơi ngắn gọn (nếu lần đầu) → Chuyển đến Screen 2 (Bản đồ tổng quát)
   * Click "X" → Đóng và quay về trang trước
 * **Lưu ý**: Có thể gộp với popup luật chơi thành 1 màn hình đơn giản
 
@@ -216,42 +284,123 @@ Minigame du xuân nơi người chơi gieo xúc xắc để đưa Tebbi cưỡi 
     * Button: "Bắt đầu chơi" (CTA chính)
   * Background dimmed
 * **User Actions**:
-  * Click "Bắt đầu chơi" → Đóng popup và chuyển đến Screen 2 (Game Screen)
-  * Click "X" hoặc click outside → Đóng popup và chuyển đến Game Screen
+  * Click "Bắt đầu chơi" → Đóng popup và chuyển đến Screen 2 (Bản đồ tổng quát)
+  * Click "X" hoặc click outside → Đóng popup và chuyển đến Screen 2 (Bản đồ tổng quát)
 * **Lưu ý**: Popup này chỉ hiển thị lần đầu, có thể skip dễ dàng
 
 ---
 
-#### **Screen 2 – Game Screen (Màn hình chơi chính - Đơn giản hóa)**
+#### **Screen 2 – Bản Đồ Việt Nam Tổng Quát (Map Overview Screen)**
 
-* **Purpose**: Màn hình chính của game, nơi người chơi gieo xúc xắc và xem Tebbi di chuyển trên bản đồ.
+* **Purpose**: Màn hình chính hiển thị bản đồ Việt Nam với 34 tỉnh thành, nơi người chơi chọn tỉnh để bắt đầu chơi bàn cờ 20 ô.
 * **Components**: 
   * **Top bar** (đơn giản):
-    * Số lượt còn lại: "Lượt: 3" (hiển thị nổi bật)
-    * Icon điểm danh nhỏ: Badge hiển thị nếu chưa điểm danh hôm nay (nếu có thời gian)
+    * Số lượt còn lại: "Lượt: X" (hiển thị nổi bật)
+    * Icon điểm danh nhỏ: Badge hiển thị nếu chưa điểm danh hôm nay
     * Icon mảnh ghép nhỏ: Hiển thị "X/4" mảnh ghép đã có
-  * **Map area** (chiếm 60-70% màn hình):
-    * Bản đồ Việt Nam hình chữ S đơn giản (SVG hoặc hình ảnh tĩnh)
-    * 34 ô tỉnh thành được đánh số thứ tự (1-34)
-    * Tebbi (nhân vật) ở vị trí hiện tại (icon đơn giản)
-    * Các tỉnh đã đi qua được đánh dấu (màu xám nhạt)
-    * Tỉnh hiện tại được highlight (màu đỏ)
-  * **Dice area** (phía dưới map):
-    * Xúc xắc lớn (có thể click để gieo)
-    * Button "Gieo xúc xắc" (nếu còn lượt) hoặc "Hết lượt" (disabled nếu = 0)
-  * **Progress text**: "Đã đi: X/34 tỉnh" (text đơn giản thay vì progress bar)
+    * Button "Xem mảnh ghép" (optional)
+  * **Map area** (chiếm 80-85% màn hình):
+    * Bản đồ Việt Nam hình chữ S (SVG interactive hoặc hình ảnh với clickable areas)
+    * **34 tỉnh thành** được hiển thị rõ ràng với:
+      * Tên tỉnh hiển thị trên mỗi tỉnh (hoặc hiển thị khi hover/click)
+      * **Trạng thái tỉnh:**
+        * Tỉnh chưa chơi: Màu xám nhạt hoặc màu mặc định
+        * Tỉnh đã hoàn thành: Màu xanh lá với icon checkmark hoặc badge "Hoàn thành"
+        * Tỉnh đang chơi dở: Màu vàng/cam với badge "Đang chơi"
+        * Tỉnh có thể chơi: Highlight nhẹ, có thể click
+    * **Phân vùng miền:** Màu sắc nhẹ để phân biệt 3 miền (Bắc, Trung, Nam)
+    * **Progress indicators:**
+      * Số tỉnh đã hoàn thành: "Đã hoàn thành: X/34 tỉnh"
+      * Tiến độ theo miền: "Bắc: X/Y tỉnh", "Trung: X/Y tỉnh", "Nam: X/Y tỉnh"
+  * **Bottom info bar** (optional):
+    * Thông tin tổng quan: Tổng số lượt đã chơi, số mảnh ghép đã có
+    * Button "Điểm danh" (nếu chưa điểm danh)
 * **User Actions**:
-  * Click "Gieo xúc xắc" hoặc click vào xúc xắc → Xúc xắc quay animation đơn giản (1-2 giây) → Hiển thị số → Tebbi di chuyển (animation cơ bản) → Popup thưởng hiển thị
-  * Click icon điểm danh → Popup điểm danh đơn giản (nếu có thời gian)
-  * Click icon mảnh ghép → Popup hiển thị mảnh ghép (có thể tích hợp vào reward popup khi về đích)
+  * Click vào một tỉnh thành → Kiểm tra lượt còn lại:
+    * Nếu có lượt → Chuyển đến Screen 3 (Màn hình bàn cờ tỉnh)
+    * Nếu hết lượt → Hiển thị popup "Bạn đã hết lượt" với CTA "Điểm danh" hoặc "Đóng"
+  * Click icon điểm danh → Popup điểm danh
+  * Click icon mảnh ghép → Popup hiển thị mảnh ghép
+  * Click vào tỉnh đã hoàn thành → Hiển thị popup thông tin tỉnh (tùy chọn) hoặc cho phép chơi lại
+* **Visual States**:
+  * Tỉnh có thể chơi: Cursor pointer, có hiệu ứng hover (scale nhẹ hoặc glow)
+  * Tỉnh đã hoàn thành: Hiển thị icon checkmark hoặc badge
+  * Tỉnh đang chơi dở: Hiển thị badge "Tiếp tục" hoặc icon đặc biệt
 * **Animation**:
-  * Xúc xắc quay 1-2 giây trước khi hiển thị số (animation CSS + sound effect)
-  * Tebbi di chuyển từ tỉnh này sang tỉnh khác (fade out/in hoặc slide, 0.5-1 giây + sound effect)
-  * Hiệu ứng pháo hoa khi Tebbi dừng tại tỉnh mới
+  * Fade in khi load màn hình
+  * Hover effect khi di chuột qua tỉnh (scale hoặc glow)
+  * Transition mượt khi chuyển sang màn hình bàn cờ tỉnh
 
 ---
 
-#### **Screen 3 – Reward Popup (Popup thưởng - Đơn giản)**
+#### **Screen 3 – Màn Hình Bàn Cờ Tỉnh (Province Board Screen)**
+
+* **Purpose**: Màn hình hiển thị bàn cờ hình vuông 20 ô của tỉnh đã chọn, nơi người chơi gieo xúc xắc và di chuyển trên bàn cờ.
+* **Components**: 
+  * **Header bar**:
+    * Tên tỉnh đang chơi: "Tỉnh [Tên]" (hiển thị nổi bật)
+    * Button "Quay lại bản đồ" (icon mũi tên trái hoặc icon bản đồ)
+    * Số lượt còn lại: "Lượt: X" (hiển thị nhỏ)
+  * **Board area** (chiếm 60-70% màn hình, center):
+    * **Bàn cờ hình vuông** với 20 ô được sắp xếp theo layout:
+      * Ô số 1 (START) ở góc trên trái hoặc vị trí xuất phát
+      * Các ô được sắp xếp theo đường zigzag hoặc hình vuông 4x5 hoặc 5x4
+      * Ô số 20 (FINISH) ở vị trí cuối cùng
+    * **Mỗi ô hiển thị:**
+      * Số thứ tự ô (1-20)
+      * Icon/biểu tượng loại ô:
+        * START: Icon cờ xuất phát
+        * FINISH: Icon cờ đích
+        * SỰ KIỆN (6, 16): Icon ngôi sao hoặc gift box
+        * TIỀN THƯỞNG (3, 8, 13, 18): Icon VNĐ hoặc tiền vàng
+        * THÊM LƯỢT (7, 14, 19): Icon bao lì xì hoặc lượt
+        * THỬ THÁCH (4, 10, 17): Icon cảnh báo hoặc thử thách
+        * LỜI CHÚC (còn lại): Icon câu chúc hoặc pháo hoa
+      * Màu sắc phân biệt theo loại ô
+    * **Vị trí người chơi:**
+      * Icon Tebbi hoặc marker hiển thị tại ô hiện tại
+      * Animation khi di chuyển từ ô này sang ô khác
+    * **Trạng thái ô:**
+      * Ô đã đi qua: Màu xám nhạt hoặc có dấu checkmark
+      * Ô hiện tại: Highlight màu đỏ/vàng, có animation nhấp nháy nhẹ
+      * Ô chưa đến: Màu mặc định
+  * **Dice area** (phía dưới board):
+    * Xúc xắc lớn (có thể click để gieo)
+    * Button "Gieo xúc xắc" (nếu còn lượt) hoặc "Hết lượt" (disabled nếu = 0)
+    * Hiển thị số xúc xắc vừa gieo (nếu có)
+  * **Progress indicator**:
+    * Text: "Ô hiện tại: X/20" hoặc progress bar
+    * Thông tin: "Còn X ô nữa để hoàn thành"
+* **User Actions**:
+  * Click "Gieo xúc xắc" hoặc click vào xúc xắc → 
+    * Kiểm tra lượt còn lại:
+      * Nếu có lượt → Xúc xắc quay animation (1-2 giây) → Hiển thị số (1-6) → Di chuyển marker trên bàn cờ → Dừng tại ô mới → Kích hoạt chức năng ô
+      * Nếu hết lượt → Hiển thị popup "Bạn đã hết lượt" với CTA "Điểm danh" hoặc "Quay lại bản đồ"
+  * Click vào ô đã đi qua → Hiển thị popup thông tin ô (tùy chọn)
+  * Click "Quay lại bản đồ" → Quay về Screen 2 (Bản đồ tổng quát)
+  * Khi đến ô FINISH (20) → 
+    * Hiển thị popup hoàn thành tỉnh → Nhận thưởng +1 lượt → Quay về Screen 2 (Bản đồ tổng quát)
+* **Chức năng các loại ô**:
+  * **START (1)**: Không có tác dụng, chỉ là điểm xuất phát
+  * **FINISH (20)**: Hoàn thành tỉnh, nhận +1 lượt, quay về bản đồ
+  * **SỰ KIỆN (6, 16)**: Popup săn mảnh ghép (có thể nhận mảnh vùng miền hoặc mảnh Hiếm)
+  * **TIỀN THƯỞNG (3, 8, 13, 18)**: Popup nhận tiền vào ví thưởng
+  * **THÊM LƯỢT (7, 14, 19)**: Popup nhận +1 hoặc +2 lượt
+  * **THỬ THÁCH (4, 10, 17)**: Popup thử thách (lùi bước, đứng im, trừ xu)
+  * **LỜI CHÚC (còn lại)**: Popup câu chúc + thưởng xu nhỏ
+* **Animation**:
+  * Xúc xắc quay 1-2 giây với CSS animation + sound effect
+  * Marker di chuyển từ ô này sang ô khác (slide hoặc path animation, 0.5-1 giây)
+  * Hiệu ứng pháo hoa khi dừng tại ô mới
+  * Highlight animation cho ô hiện tại (pulse hoặc glow)
+  * Confetti khi hoàn thành tỉnh (đến ô FINISH)
+* **Lưu ý**: 
+  * Tiến độ trên bàn cờ được lưu lại, người chơi có thể quay lại tiếp tục từ ô đã dừng
+  * Nếu hết lượt giữa chừng, khi có lượt mới có thể tiếp tục từ ô hiện tại
+
+---
+
+#### **Screen 4 – Reward Popup (Popup thưởng - Đơn giản)**
 
 * **Purpose**: Hiển thị phần thưởng người chơi nhận được sau khi Tebbi dừng tại một tỉnh.
 * **Components**: 
@@ -265,7 +414,7 @@ Minigame du xuân nơi người chơi gieo xúc xắc để đưa Tebbi cưỡi 
     * Button "Tiếp tục" (CTA chính)
   * **Background dimmed**: Màn hình phía sau bị làm mờ
 * **User Actions**:
-  * Click "Tiếp tục" → Đóng popup và quay về Game Screen
+  * Click "Tiếp tục" → Đóng popup và quay về Screen 3 (Màn hình bàn cờ tỉnh) hoặc Screen 2 (Bản đồ tổng quát) tùy ngữ cảnh
   * Click outside popup → Đóng popup (optional)
 * **Animation**:
   * Popup fade in từ center (CSS transition) + sound effect
@@ -275,7 +424,7 @@ Minigame du xuân nơi người chơi gieo xúc xắc để đưa Tebbi cưỡi 
 
 ---
 
-#### **Screen 4 – Puzzle Popup (Popup mảnh ghép - Đơn giản)**
+#### **Screen 5 – Puzzle Popup (Popup mảnh ghép - Đơn giản)**
 
 * **Purpose**: Hiển thị tiến độ thu thập 4 mảnh ghép hành trình (có thể tích hợp vào reward popup khi về đích).
 * **Components**: 
@@ -289,13 +438,13 @@ Minigame du xuân nơi người chơi gieo xúc xắc để đưa Tebbi cưỡi 
     * Button "Tiếp tục" hoặc "Đóng"
   * **Background dimmed**
 * **User Actions**:
-  * Click "Tiếp tục" hoặc "Đóng" → Quay về Game Screen
+  * Click "Tiếp tục" hoặc "Đóng" → Quay về Screen 2 (Bản đồ tổng quát)
 * **Special state**: Nếu đủ 4 mảnh → Popup này sẽ tự động chuyển thành popup "Hoàn thành" với thưởng lớn
 * **Lưu ý**: Popup này có thể được tích hợp vào reward popup khi về đích để giảm số lượng màn hình
 
 ---
 
-#### **Screen 5 – Check-in Popup (Popup điểm danh - Tùy chọn)**
+#### **Screen 6 – Check-in Popup (Popup điểm danh - Tùy chọn)**
 
 * **Purpose**: Cho phép người chơi điểm danh nhiều lần trong ngày theo các mốc thời gian để nhận +1 lượt mỗi lần (đơn giản hóa).
 * **Components**: 
@@ -313,13 +462,13 @@ Minigame du xuân nơi người chơi gieo xúc xắc để đưa Tebbi cưỡi 
     * Button "Đóng"
   * **Background dimmed**
 * **User Actions**:
-  * Click "Điểm danh ngay" tại mốc đang mở → Animation checkmark đơn giản → Hiển thị "+1 lượt đã được cộng" → Cập nhật trạng thái mốc → Đóng popup và quay về Game Screen
-  * Click "Đóng" → Quay về Game Screen
-* **Lưu ý**: Tính năng này chỉ làm nếu có thời gian dư. Có thể đơn giản hóa thành button trên Game Screen thay vì popup riêng
+  * Click "Điểm danh ngay" tại mốc đang mở → Animation checkmark đơn giản → Hiển thị "+1 lượt đã được cộng" → Cập nhật trạng thái mốc → Đóng popup và quay về Screen 2 (Bản đồ tổng quát)
+  * Click "Đóng" → Quay về Screen 2 (Bản đồ tổng quát)
+* **Lưu ý**: Tính năng này chỉ làm nếu có thời gian dư. Có thể đơn giản hóa thành button trên Screen 2 (Bản đồ tổng quát) thay vì popup riêng
 
 ---
 
-#### **Screen 6 – Mission Screen (LOẠI BỎ trong Phase 1)**
+#### **Screen 7 – Mission Screen (LOẠI BỎ trong Phase 1)**
 
 * **Purpose**: Tính năng này được loại bỏ trong Phase 1 để đảm bảo timeline 1 tuần.
 * **Lý do**: Nhiệm vụ phức tạp cần tích hợp với nhiều hệ thống khác, tốn thời gian phát triển và test.
@@ -327,7 +476,7 @@ Minigame du xuân nơi người chơi gieo xúc xắc để đưa Tebbi cưỡi 
 
 ---
 
-#### **Screen 5 – Completion Popup (Popup hoàn thành 4 mảnh - Đơn giản)**
+#### **Screen 8 – Completion Popup (Popup hoàn thành 4 mảnh - Đơn giản)**
 
 * **Purpose**: Popup đặc biệt khi người chơi hoàn thành đủ 4 mảnh ghép, trao thưởng lớn và reset vòng.
 * **Components**: 
@@ -343,7 +492,7 @@ Minigame du xuân nơi người chơi gieo xúc xắc để đưa Tebbi cưỡi 
     * Button "Nhận thưởng và chơi tiếp"
   * **Background dimmed**
 * **User Actions**:
-  * Click "Nhận thưởng và chơi tiếp" → Trao thưởng → Reset vòng tự động → Đóng popup và quay về Game Screen với vòng mới
+  * Click "Nhận thưởng và chơi tiếp" → Trao thưởng → Reset vòng tự động → Đóng popup và quay về Screen 2 (Bản đồ tổng quát)
 * **Animation**:
   * Popup fade in với scale effect + sound effect đặc biệt
   * Pháo hoa liên tục trong 5-10 giây

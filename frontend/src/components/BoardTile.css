@@ -1,0 +1,122 @@
+.board-tile {
+  position: relative;
+  background: white;
+  border: 2px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  box-sizing: border-box;
+  transition: all 0.2s;
+}
+
+.board-tile:hover {
+  border-color: #667eea;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.board-tile.corner {
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.board-tile.has-player {
+  border-color: #667eea;
+  border-width: 3px;
+  box-shadow: 0 0 12px rgba(102, 126, 234, 0.5);
+}
+
+.property-tile {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  gap: 2px;
+}
+
+.property-icon {
+  font-size: 16px;
+  margin-bottom: 2px;
+}
+
+.property-name {
+  font-size: 8px;
+  text-align: center;
+  word-break: break-word;
+  line-height: 1.1;
+  color: #333;
+}
+
+.chance-tile {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+}
+
+.chance-icon {
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.corner-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  gap: 4px;
+}
+
+.corner-icon {
+  font-size: 24px;
+  margin-bottom: 4px;
+}
+
+.corner-name {
+  font-size: 10px;
+  text-align: center;
+  font-weight: bold;
+  color: #333;
+}
+
+.player-token {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  z-index: 10;
+}
+
+.token {
+  width: 24px;
+  height: 24px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  border: 2px solid #667eea;
+  animation: bounce 0.5s ease;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}

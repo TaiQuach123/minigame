@@ -90,6 +90,31 @@ function MapChart({ mapData, seriesData, selectedProvince, onProvinceClick }) {
         tooltip: {
           pointFormat: '{point.name}'
         }
+      }, {
+        type: 'mappoint',
+        name: 'Icons',
+        enableMouseTracking: false,
+        data: [{
+          name: 'Ho Chi Minh City',
+          lat: 10.754,
+          lon: 106.695
+        }],
+        dataLabels: {
+          enabled: true,
+          format: '🏫',
+          style: {
+            fontSize: '32px',
+            fontWeight: 'normal',
+            textOutline: 'none',
+            color: 'black'
+          },
+          allowOverlap: true,
+          zIndex: 100
+        },
+        marker: {
+          enabled: false,
+          radius: 0
+        }
       }]
     })
 
