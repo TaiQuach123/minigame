@@ -6,6 +6,7 @@ import './App.css'
 
 function App() {
   const [selectedProvince, setSelectedProvince] = useState(null)
+  const [selectedProvinceValue, setSelectedProvinceValue] = useState(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   // Create dummy data for the map
@@ -19,14 +20,26 @@ function App() {
     })
   }, [])
 
-  const handleProvinceClick = (provinceName) => {
+  const handleProvinceClick = (provinceName, provinceValue) => {
+    // Just select the province, don't open modal yet
     setSelectedProvince(provinceName)
+    setSelectedProvinceValue(provinceValue)
+  }
+
+  const handleViewDetails = () => {
+    // Open modal when button is clicked
     setIsModalOpen(true)
   }
 
   const handleCloseModal = () => {
     setIsModalOpen(false)
     setSelectedProvince(null)
+    setSelectedProvinceValue(null)
+  }
+
+  const handleDeselect = () => {
+    setSelectedProvince(null)
+    setSelectedProvinceValue(null)
   }
 
   return (
@@ -34,8 +47,25 @@ function App() {
       <MapChart 
         mapData={mapData} 
         seriesData={mapSeriesData}
+        selectedProvince={selectedProvince}
         onProvinceClick={handleProvinceClick}
       />
+      {selectedProvince && (
+        <div className="province-info-panel">
+          <div className="province-info-content">
+            <h3 className="province-info-name">{selectedProvince}</h3>
+            {selectedProvinceValue !== null && (
+              <p className="province-info-value">Value: {selectedProvinceValue}</p>
+            )}
+            <button className="view-details-btn" onClick={handleViewDetails}>
+              View Details
+            </button>
+            <button className="close-info-btn" onClick={handleDeselect}>
+              ×
+            </button>
+          </div>
+        </div>
+      )}
       <ProvinceModal 
         isOpen={isModalOpen}
         provinceName={selectedProvince}

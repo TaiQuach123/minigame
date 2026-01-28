@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
-function MapChart({ mapData, seriesData, onProvinceClick }) {
+function MapChart({ mapData, seriesData, selectedProvince, onProvinceClick }) {
   const chartRef = useRef(null)
   const chartInstanceRef = useRef(null)
   const [highchartsReady, setHighchartsReady] = useState(false)
@@ -41,7 +41,7 @@ function MapChart({ mapData, seriesData, onProvinceClick }) {
         }
       },
       subtitle: {
-        text: 'Click on a province to view details',
+        text: 'Click on a province to select it',
         style: {
           fontFamily: 'Inter'
         }
@@ -67,7 +67,7 @@ function MapChart({ mapData, seriesData, onProvinceClick }) {
             events: {
               click: function () {
                 // 'this' refers to the clicked point
-                onProvinceClick(this.name)
+                onProvinceClick(this.name, this.value)
               }
             }
           }
@@ -78,24 +78,50 @@ function MapChart({ mapData, seriesData, onProvinceClick }) {
         joinBy: 'hc-key',
         name: 'Random data',
         states: {
-          hover: {
-            color: '#a4edba'
+          select: {
+            color: '#a4edba',  // Use select state for clicked provinces
+            borderColor: '#333',
+            borderWidth: 2
           }
         },
         dataLabels: {
-          enabled: true,
-          format: '{point.name}',
-          style: {
-            fontWeight: 'normal',
-            textOutline: 'none',
-            color: 'contrast'
-          }
+          enabled: false
         },
         tooltip: {
           pointFormat: '{point.name}'
         }
       }]
     })
+
+    // Update selected province visual state
+    if (chartInstanceRef.current && selectedProvince) {
+      const chart = chartInstanceRef.current
+      const series = chart.series[0]
+      if (series) {
+        // Deselect all points first
+        series.data.forEach(point => {
+          if (point.selected) {
+            point.select(false, false)
+          }
+        })
+        // Select the clicked province
+        const selectedPoint = series.data.find(point => point.name === selectedProvince)
+        if (selectedPoint) {
+          selectedPoint.select(true, false)
+        }
+      }
+    } else if (chartInstanceRef.current && !selectedProvince) {
+      // Deselect all when no province is selected
+      const chart = chartInstanceRef.current
+      const series = chart.series[0]
+      if (series) {
+        series.data.forEach(point => {
+          if (point.selected) {
+            point.select(false, false)
+          }
+        })
+      }
+    }
 
     // Cleanup function
     return () => {
@@ -104,7 +130,7 @@ function MapChart({ mapData, seriesData, onProvinceClick }) {
         chartInstanceRef.current = null
       }
     }
-  }, [mapData, seriesData, onProvinceClick, highchartsReady])
+  }, [mapData, seriesData, onProvinceClick, highchartsReady, selectedProvince])
 
   return <div ref={chartRef} style={{ height: '100vh', width: '100vw' }} />
 }

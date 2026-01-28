@@ -1,219 +1,219 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
+  <head>
     <title>Interactive Vietnam Map (34 Provinces)</title>
     <script src="https://code.highcharts.com/maps/highmaps.js"></script>
     <script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
     <!-- Load local modified map data -->
     <script src="vn-all-merged-data.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            background-color: #f0f2f5;
-            overflow: hidden; /* Prevent scrolling when modal is open */
-        }
+      body {
+        font-family: "Inter", sans-serif;
+        margin: 0;
+        background-color: #f0f2f5;
+        overflow: hidden; /* Prevent scrolling when modal is open */
+      }
 
-        #container {
-            height: 100vh; 
-            width: 100vw;
-            margin: 0 auto; 
-        }
+      #container {
+        height: 100vh;
+        width: 100vw;
+        margin: 0 auto;
+      }
 
-        /* Modal Styles */
-        #modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(5px);
-            display: none; /* Hidden by default */
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
+      /* Modal Styles */
+      #modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(5px);
+        display: none; /* Hidden by default */
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
 
-        #modal-overlay.active {
-            display: flex;
-            opacity: 1;
-        }
+      #modal-overlay.active {
+        display: flex;
+        opacity: 1;
+      }
 
-        #modal-content {
-            background: white;
-            width: 80%;
-            max-width: 600px;
-            height: 60%;
-            max-height: 500px;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            padding: 24px;
-            position: relative;
-            transform: scale(0.9);
-            transition: transform 0.3s ease;
-            display: flex;
-            flex-direction: column;
-        }
+      #modal-content {
+        background: white;
+        width: 80%;
+        max-width: 600px;
+        height: 60%;
+        max-height: 500px;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        padding: 24px;
+        position: relative;
+        transform: scale(0.9);
+        transition: transform 0.3s ease;
+        display: flex;
+        flex-direction: column;
+      }
 
-        #modal-overlay.active #modal-content {
-            transform: scale(1);
-        }
+      #modal-overlay.active #modal-content {
+        transform: scale(1);
+      }
 
-        h2 {
-            margin-top: 0;
-            color: #1a1a1a;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 12px;
-        }
+      h2 {
+        margin-top: 0;
+        color: #1a1a1a;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 12px;
+      }
 
-        .close-btn {
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            color: #666;
-            transition: color 0.2s;
-        }
+      .close-btn {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: #666;
+        transition: color 0.2s;
+      }
 
-        .close-btn:hover {
-            color: #000;
-        }
+      .close-btn:hover {
+        color: #000;
+      }
 
-        #modal-body {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #888;
-            font-style: italic;
-        }
-
+      #modal-body {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #888;
+        font-style: italic;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
+    <div id="container"></div>
 
-<div id="container"></div>
-
-<!-- Modal Structure -->
-<div id="modal-overlay">
-    <div id="modal-content">
+    <!-- Modal Structure -->
+    <div id="modal-overlay">
+      <div id="modal-content">
         <button class="close-btn" onclick="closeModal()">&times;</button>
         <h2 id="modal-title">Province Name</h2>
-        <div id="modal-body">
-            Content for this province will go here.
-        </div>
+        <div id="modal-body">Content for this province will go here.</div>
+      </div>
     </div>
-</div>
 
-<script>
-    // Access the data loaded from vn-all-merged-data.js
-    const mapGeoJSON = window.mergedMapData;
+    <script>
+      // Access the data loaded from vn-all-merged-data.js
+      const mapGeoJSON = window.mergedMapData;
 
-    // Create dummy data
-    const data = mapGeoJSON.features.map(f => {
-        const key = f.properties['hc-key'];
+      // Create dummy data
+      const data = mapGeoJSON.features.map((f) => {
+        const key = f.properties["hc-key"];
         return {
-            'hc-key': key,
-            value: Math.floor(Math.random() * 100)
+          "hc-key": key,
+          value: Math.floor(Math.random() * 100),
         };
-    });
+      });
 
-    // Modal Control Functions
-    const modalOverlay = document.getElementById('modal-overlay');
-    const modalTitle = document.getElementById('modal-title');
+      // Modal Control Functions
+      const modalOverlay = document.getElementById("modal-overlay");
+      const modalTitle = document.getElementById("modal-title");
 
-    function openModal(provinceName) {
+      function openModal(provinceName) {
         modalTitle.innerText = provinceName;
-        modalOverlay.classList.add('active');
-    }
+        modalOverlay.classList.add("active");
+      }
 
-    function closeModal() {
-        modalOverlay.classList.remove('active');
-    }
+      function closeModal() {
+        modalOverlay.classList.remove("active");
+      }
 
-    // Close on click outside
-    modalOverlay.addEventListener('click', (e) => {
+      // Close on click outside
+      modalOverlay.addEventListener("click", (e) => {
         if (e.target === modalOverlay) {
-            closeModal();
+          closeModal();
         }
-    });
+      });
 
-    Highcharts.mapChart('container', {
+      Highcharts.mapChart("container", {
         chart: {
-            map: mapGeoJSON,
-            backgroundColor: '#f0f2f5'
+          map: mapGeoJSON,
+          backgroundColor: "#f0f2f5",
         },
         title: {
-            text: 'Vietnam 2025: 34 Administrative Units',
-            style: {
-                fontSize: '24px',
-                fontFamily: 'Inter'
-            }
+          text: "Vietnam 2025: 34 Administrative Units",
+          style: {
+            fontSize: "24px",
+            fontFamily: "Inter",
+          },
         },
         subtitle: {
-             text: 'Click on a province to view details',
-             style: {
-                fontFamily: 'Inter'
-             }
+          text: "Click on a province to view details",
+          style: {
+            fontFamily: "Inter",
+          },
         },
         mapNavigation: {
-            enabled: true,
-            buttonOptions: {
-                verticalAlign: 'bottom'
-            }
+          enabled: true,
+          buttonOptions: {
+            verticalAlign: "bottom",
+          },
         },
         colorAxis: {
-            min: 0,
-            stops: [
-                [0, '#EFEFFF'],
-                [0.5, '#4444FF'],
-                [1, '#000022']
-            ]
+          min: 0,
+          stops: [
+            [0, "#EFEFFF"],
+            [0.5, "#4444FF"],
+            [1, "#000022"],
+          ],
         },
         plotOptions: {
-            series: {
-                cursor: 'pointer',
-                point: {
-                    events: {
-                        click: function () {
-                            // 'this' refers to the clicked point
-                            openModal(this.name);
-                        }
-                    }
-                }
-            }
+          series: {
+            cursor: "pointer",
+            point: {
+              events: {
+                click: function () {
+                  // 'this' refers to the clicked point
+                  openModal(this.name);
+                },
+              },
+            },
+          },
         },
-        series: [{
+        series: [
+          {
             data: data,
-            joinBy: 'hc-key',
-            name: 'Random data',
+            joinBy: "hc-key",
+            name: "Random data",
             states: {
-                hover: {
-                    color: '#a4edba'
-                }
+              hover: {
+                color: "#a4edba",
+              },
             },
             dataLabels: {
-                enabled: true,
-                format: '{point.name}',
-                style: {
-                    fontWeight: 'normal',
-                    textOutline: 'none',
-                    color: 'contrast'
-                }
+              enabled: true,
+              format: "{point.name}",
+              style: {
+                fontWeight: "normal",
+                textOutline: "none",
+                color: "contrast",
+              },
             },
             tooltip: {
-                pointFormat: '{point.name}'
-            }
-        }]
-    });
-</script>
-
-</body>
+              pointFormat: "{point.name}",
+            },
+          },
+        ],
+      });
+    </script>
+  </body>
 </html>

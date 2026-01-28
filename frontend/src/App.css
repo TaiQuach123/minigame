@@ -1,4 +1,96 @@
 .app {
   height: 100vh;
   width: 100vw;
+  position: relative;
+}
+
+.province-info-panel {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.province-info-content {
+  background: white;
+  border-radius: 12px;
+  padding: 20px 24px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  min-width: 250px;
+  position: relative;
+  font-family: Inter, sans-serif;
+}
+
+.province-info-name {
+  margin: 0 0 8px 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.province-info-value {
+  margin: 0 0 16px 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.view-details-btn {
+  width: 100%;
+  background: #4444FF;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(68, 68, 255, 0.3);
+  transition: all 0.3s ease;
+  font-family: Inter, sans-serif;
+}
+
+.view-details-btn:hover {
+  background: #3333DD;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(68, 68, 255, 0.4);
+}
+
+.view-details-btn:active {
+  transform: translateY(0);
+}
+
+.close-info-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #999;
+  line-height: 1;
+  padding: 4px;
+  transition: color 0.2s;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-info-btn:hover {
+  color: #333;
 }
