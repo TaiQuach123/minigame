@@ -15,9 +15,18 @@ Thumbs.db
 *~
 .cursor/
 
+# Node modules
+.npm_cache/
+*/.npm-cache/
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
 # Logs
 *.log
-npm-debug.log*
 
 # Environment variables
 .env

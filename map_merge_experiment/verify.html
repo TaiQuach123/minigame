@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Merged Map Verification</title>
+    <script src="https://code.highcharts.com/maps/highmaps.js"></script>
+    <script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
+    <!-- Load local modified map data -->
+    <script src="vn-merged-data.js"></script>
+    <style>
+        #container {
+            height: 800px; 
+            min-width: 310px; 
+            max-width: 800px; 
+            margin: 0 auto; 
+        }
+    </style>
+</head>
+<body>
+
+<div id="container"></div>
+
+<script>
+    // Access the data loaded from vn-merged-data.js
+    const mapGeoJSON = window.mergedMapData;
+
+    console.log('Map Data:', mapGeoJSON);
+
+    // Create dummy data for all keys
+    const data = mapGeoJSON.features.map(f => {
+        const key = f.properties['hc-key'];
+        // Default value
+        return [key, Math.floor(Math.random() * 100)];
+    });
+    
+    // Highlight the merged one with a high value
+    // Find the entry we just added
+    const mergedIndex = data.findIndex(d => d[0] === 'vn-ag-kg');
+    if(mergedIndex !== -1) {
+        data[mergedIndex][1] = 200; // Distinct high value
+        console.log('Found merged key:', data[mergedIndex]);
+    } else {
+        console.error('Merged key vn-ag-kg not found in features!');
+    }
+
+    Highcharts.mapChart('container', {
+        chart: {
+            map: mapGeoJSON
+        },
+        title: {
+            text: 'Merged Province Map: An Giang + Kien Giang'
+        },
+        subtitle: {
+            text: 'Result of merging vn-ag and vn-kg'
+        },
+        mapNavigation: {
+            enabled: true,
+            buttonOptions: {
+                verticalAlign: 'bottom'
+            }
+        },
+        colorAxis: {
+            min: 0,
+            max: 200
+        },
+        series: [{
+            data: data,
+            name: 'Random data',
+            states: {
+                hover: {
+                    color: '#BADA55'
+                }
+            },
+            dataLabels: {
+                enabled: true,
+                format: '{point.name}'
+            },
+            tooltip: {
+                pointFormat: '{point.name}: {point.value}'
+            }
+        }]
+    });
+</script>
+
+</body>
+</html>
