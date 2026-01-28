@@ -8,7 +8,7 @@ const TET_RED = '#C8102E' // Traditional Vietnamese red
 const TET_GOLD = '#FFD700' // Prosperity gold
 const TET_DARK_RED = '#8B0000' // Darker red for contrast
 
-function DiceFace({ value, position, rotation }) {
+function DiceFace({ value, position, rotation, textRotation = [0, 0, 0] }) {
   return (
     <group position={position} rotation={rotation}>
       {/* Face background with white/ivory color */}
@@ -18,22 +18,27 @@ function DiceFace({ value, position, rotation }) {
           color="#FFF8E7" 
           roughness={0.3}
           metalness={0.1}
+          side={THREE.DoubleSide}
         />
       </mesh>
       
       {/* Number text - Tet red color */}
-      <Text
-        position={[0, 0, 0.01]}
-        fontSize={0.6}
-        color={TET_RED}
-        anchorX="center"
-        anchorY="middle"
-        fontWeight="900"
-        outlineWidth={0.02}
-        outlineColor={TET_GOLD}
-      >
-        {value}
-      </Text>
+      <group rotation={textRotation}>
+        <Text
+          position={[0, 0, 0.01]}
+          fontSize={0.6}
+          color={TET_RED}
+          anchorX="center"
+          anchorY="middle"
+          fontWeight="900"
+          outlineWidth={0.02}
+          outlineColor={TET_GOLD}
+          depthTest={false}
+          renderOrder={1}
+        >
+          {value}
+        </Text>
+      </group>
       
       {/* Decorative gold border ring */}
       <mesh>
@@ -42,6 +47,7 @@ function DiceFace({ value, position, rotation }) {
           color={TET_GOLD} 
           roughness={0.2}
           metalness={0.8}
+          side={THREE.DoubleSide}
         />
       </mesh>
     </group>
@@ -141,12 +147,18 @@ function Dice3D({ isRolling = false, value = null, onAnimationComplete }) {
       </mesh>
       
       {/* Dice faces with numbers - always visible */}
+      {/* Face 1: Front (Z+) */}
       <DiceFace value={1} position={[0, 0, 0.501]} rotation={[0, 0, 0]} />
+      {/* Face 2: Top (Y+) */}
       <DiceFace value={2} position={[0, 0.501, 0]} rotation={[-Math.PI / 2, 0, 0]} />
-      <DiceFace value={3} position={[-0.501, 0, 0]} rotation={[0, Math.PI / 2, 0]} />
-      <DiceFace value={4} position={[0.501, 0, 0]} rotation={[0, -Math.PI / 2, 0]} />
+      {/* Face 3: Left (X-) - needs text rotation fix */}
+      <DiceFace value={3} position={[-0.501, 0, 0]} rotation={[0, Math.PI / 2, 0]} textRotation={[0, Math.PI, 0]} />
+      {/* Face 4: Right (X+) - needs text rotation fix */}
+      <DiceFace value={4} position={[0.501, 0, 0]} rotation={[0, -Math.PI / 2, 0]} textRotation={[0, Math.PI, 0]} />
+      {/* Face 5: Bottom (Y-) */}
       <DiceFace value={5} position={[0, -0.501, 0]} rotation={[Math.PI / 2, 0, 0]} />
-      <DiceFace value={6} position={[0, 0, -0.501]} rotation={[Math.PI, 0, 0]} />
+      {/* Face 6: Back (Z-) */}
+      <DiceFace value={6} position={[0, 0, -0.501]} rotation={[0, Math.PI, 0]} />
     </group>
   )
 }
