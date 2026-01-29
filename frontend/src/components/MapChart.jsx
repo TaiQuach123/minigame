@@ -50,7 +50,7 @@ function MapChart({ mapData, seriesData, selectedProvince, onProvinceClick }) {
         }
       },
       title: {
-        text: 'Cưỡi Ngựa Vàng - Rước Ngàn Lộc',
+        text: 'Cưỡi Ngựa Vàng - Săn Ngàn Lộc',
         style: {
           fontSize: '24px',
           fontFamily: 'Inter'
