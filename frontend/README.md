@@ -1,73 +1,48 @@
 # Vietnam Map Frontend
 
-Interactive Vietnam map application built with React and Vite, displaying 34 administrative units.
+Interactive Vietnam map application built with React and Vite.
 
-## Features
+## Prerequisites
 
-- Interactive map visualization using Highcharts Maps
-- Click on provinces to view details in a modal
-- Random data visualization with color-coded provinces
-- Responsive design with smooth animations
+- Node.js v18.0.0+ or v20.0.0+ ([Download](https://nodejs.org/))
+- npm (comes with Node.js)
 
-## Getting Started
+## Quick Start
 
-### Prerequisites
-
-- Node.js (v18 or higher recommended)
-- npm or yarn
-
-### Installation
-
-1. Install dependencies:
 ```bash
+cd frontend
 npm install
-```
-
-2. Start the development server:
-```bash
 npm run dev
 ```
 
-3. Open your browser and navigate to the URL shown in the terminal (usually `http://localhost:5173`)
+Open the URL shown in your terminal (usually `http://localhost:5173`) in your browser.
 
-### Build for Production
+**One-liner (from project root):**
+```bash
+cd frontend && npm install && npm run dev
+```
+
+## Available Scripts
 
 ```bash
-npm run build
+npm run dev      # Start development server
+npm run build    # Build for production
+npm run preview  # Preview production build
+npm run lint     # Run linter
 ```
 
-The built files will be in the `dist` folder.
+## Troubleshooting
 
-## Project Structure
+**Node.js version warning:**
+- Upgrade to Node.js v18 LTS or v20 LTS
+- Or use nvm: `nvm install 20 && nvm use 20`
 
-```
-frontend/
-├── src/
-│   ├── components/
-│   │   ├── MapChart.jsx       # Highcharts map component
-│   │   ├── MapChart.css
-│   │   ├── ProvinceModal.jsx  # Modal component for province details
-│   │   └── ProvinceModal.css
-│   ├── data/
-│   │   └── vn-all-merged.json # Vietnam map GeoJSON data
-│   ├── App.jsx                # Main application component
-│   ├── App.css
-│   ├── main.jsx               # Application entry point
-│   └── index.css              # Global styles
-├── index.html
-├── package.json
-└── vite.config.js
+**Security vulnerabilities:**
+```bash
+npm audit fix
 ```
 
-## Technologies Used
-
-- React 18
-- Vite
-- Highcharts Maps (loaded via CDN)
-- GeoJSON for map data
-
-## Notes
-
-- The map data (`vn-all-merged.json`) contains GeoJSON data for Vietnam's 34 administrative units
-- Highcharts Maps is loaded from CDN in `index.html` for easier setup
-- All original features from the HTML version have been preserved
+**Clean install (if issues occur):**
+```bash
+rm -rf node_modules package-lock.json && npm install
+```

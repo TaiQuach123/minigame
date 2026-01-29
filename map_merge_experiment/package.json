@@ -1,1 +1,0 @@
-{"name":"map-merge","type":"module","dependencies":{"@turf/turf":"^7.3.3","topojson-client":"^3.1.0","topojson-server":"^3.0.1"}}
